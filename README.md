@@ -13,9 +13,9 @@
      * [Hindari indentasi terlalu dalam dan mengembalikan hasil terlalu awal (bagian 2)](#hindari-indentasi-terlalu-dalam-dan-mengembalikan-hasil-terlalu-awal-bagian-2)
      * [Hindari pemetaan mental](#hindari-pemetaan-mental)
      * [Jangan menambahkan konteks yang tidak dibutuhkan](#jangan-menambahkan-konteks-yang-tidak-dibutuhkan)
-  3. [Comparison](#comparison)
-     * [Use identical comparison](#use-identical-comparison)
-     * [Null coalescing operator](#null-coalescing-operator)
+  3. [Perbandingan](#perbandingan)
+     * [Gunakan perbandingan identik](#gunakan-perbandingan-identik)
+     * [Operator Penggabungan Null](#operator-penggabungan-null)
   4. [Functions](#functions)
      * [Use default arguments instead of short circuiting or conditionals](#use-default-arguments-instead-of-short-circuiting-or-conditionals)
      * [Function arguments (2 or fewer ideally)](#function-arguments-2-or-fewer-ideally)
@@ -364,46 +364,48 @@ class Car
 
 **[⬆ kembali ke atas](#daftar-isi)**
 
-## Comparison
+## Perbandingan
 
-### Use [identical comparison](http://php.net/manual/en/language.operators.comparison.php)
+### Gunakan [perbandingan identik](http://php.net/manual/en/language.operators.comparison.php)
 
-**Not good:**
+**Tidak bagus:**
 
-The simple comparison will convert the string in an integer.
+Perbandingan sederhana ini akan mengonversi string menjadi integer.
 
 ```php
 $a = '42';
 $b = 42;
 
 if ($a != $b) {
-    // The expression will always pass
+    // Ekspresi akan selalu lolos
 }
 ```
 
-The comparison `$a != $b` returns `FALSE` but in fact it's `TRUE`!
-The string `42` is different than the integer `42`.
+Perbandingan `$a != $b` menghasilkan `FALSE`, walaupun seharusnya `TRUE`!
+String `42` berbeda dibandingkan integer `42`.
 
 **Bagus:**
 
-The identical comparison will compare type and value.
+Perbandingan identik akan membandingkan jenis dan nilai.
 
 ```php
 $a = '42';
 $b = 42;
 
 if ($a !== $b) {
-    // The expression is verified
+    // Ekspresi terverifikasi
 }
 ```
 
-The comparison `$a !== $b` returns `TRUE`.
+Perbandingan `$a !== $b` menghasilkan `TRUE`.
 
 **[⬆ kembali ke atas](#daftar-isi)**
 
-### Null coalescing operator
+### Operator Penggabungan Null
 
-Null coalescing is a new operator [introduced in PHP 7](https://www.php.net/manual/en/migration70.new-features.php). The null coalescing operator `??` has been added as syntactic sugar for the common case of needing to use a ternary in conjunction with `isset()`. It returns its first operand if it exists and is not `null`; otherwise it returns its second operand.
+Penggabungan Null adalah operator baru [yang diperkenalkan di PHP 7](https://www.php.net/manual/en/migration70.new-features.php). 
+Operator penggabungan null `??` telah ditambahkan sebagai sintak singkat (syntactic sugar) untuk kasus umum yang dibutuhkan untuk melibatkan 3 nilai (Ternary Operator) yang dihubungkan dengan `isset()`. 
+Mengembalikan nilai pertama jika terdefinisi dan tidak `null`, selain itu mengembalikan nilai kedua.
 
 **Buruk:**
 
@@ -428,7 +430,7 @@ $name = $_GET['name'] ?? $_POST['name'] ?? 'nobody';
 
 ### Use default arguments instead of short circuiting or conditionals
 
-**Not good:**
+**Tidak bagus:**
 
 This is not good because `$breweryName` can be `NULL`.
 
